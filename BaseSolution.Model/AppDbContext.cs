@@ -10,6 +10,8 @@ namespace BaseSolution.Model
         {
         }
 
+        public virtual DbSet<EElasticSearch> EElasticSearches { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

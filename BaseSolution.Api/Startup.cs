@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using BaseSolution.Api.Helpers;
 using BaseSolution.Common.Constants;
 using BaseSolution.Model;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace BaseSolution.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString(ConfigurationKeys.DefaultConnection), x => x.MigrationsAssembly(_assemblyName)));
-
+            services.ConfigIoc(Configuration).ConfigSwagger();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -39,6 +40,7 @@ namespace BaseSolution.Api
                 app.UseHsts();
             }
 
+            app.UseConfigSwagger();
             app.UseHttpsRedirection();
             app.UseMvc();
         }
